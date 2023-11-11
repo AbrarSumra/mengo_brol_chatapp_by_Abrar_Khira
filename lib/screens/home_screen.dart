@@ -18,9 +18,9 @@ class _HomeScreenState extends State<HomeScreen> {
     showDialog(
       context: context,
       builder: (BuildContext ctx) {
-        return Material(
+        return const Material(
           color: Colors.transparent,
-          child: const CustomBottomSheet(),
+          child: CustomBottomSheet(),
         );
       },
     );

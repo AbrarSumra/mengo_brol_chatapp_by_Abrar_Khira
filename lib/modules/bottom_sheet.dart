@@ -20,7 +20,7 @@ class _CustomBottomSheetState extends State<CustomBottomSheet> {
           margin: const EdgeInsets.all(15),
           decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(15),
           ),
           child: const Column(
             children: [
