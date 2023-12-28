@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:wscube_mengo_brol_chatapp/data/data.dart';
 import 'package:wscube_mengo_brol_chatapp/modules/bottom_sheet.dart';
+import 'package:wscube_mengo_brol_chatapp/provider/theme_provider.dart';
 import 'package:wscube_mengo_brol_chatapp/screens/chat_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -31,9 +33,11 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: isDark ? Colors.black : Colors.white,
         title: const Text(
           "Mengobrol",
           style: TextStyle(
@@ -53,6 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: Column(
             children: [
+              const SizedBox(height: 11),
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: SizedBox(
@@ -236,6 +241,31 @@ class _HomeScreenState extends State<HomeScreen> {
                   size: 30,
                 ),
               )
+            ],
+          ),
+        ),
+      ),
+      drawer: Drawer(
+        child: SafeArea(
+          child: Column(
+            children: [
+              SwitchListTile(
+                title: const Text("Dark Mode"),
+                thumbIcon: MaterialStateProperty.resolveWith((states) {
+                  if (states.contains(MaterialState.selected)) {
+                    return const Icon(Icons.dark_mode, color: Colors.blue);
+                  } else {
+                    return const Icon(Icons.light_mode, color: Colors.blue);
+                  }
+                }),
+                activeColor: Colors.white,
+                inactiveThumbColor: Colors.black,
+                value: context.read<ThemeProvider>().themeValue,
+                onChanged: (value) {
+                  context.read<ThemeProvider>().themeValue = value;
+                  Navigator.pop(context);
+                },
+              ),
             ],
           ),
         ),
